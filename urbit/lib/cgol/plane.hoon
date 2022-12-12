@@ -1,31 +1,63 @@
 |%
-+$  cell  $%([%dead @ud] [%live @ud])
++$  xord  [%x @sd]
++$  yord  [%y @sd]
++$  name  [%name @t]
++$  auth  [%author @t]
++$  comm  [%comment @t]
++$  hedd  [%head head]
++$  roww  [%row rows]
++$  parz  $%(xord yord name auth comm hedd roww)
 +$  rows  (list $@(%new cell))
++$  cell  $%([%dead @ud] [%live @ud])
 +$  head  [x=@ud y=@ud r=(unit cord)]
++$  urle
+  $:  %0
+      author=@t
+      comments=@t
+      name=@t
+      =head
+      =rows
+  ==
 ::
 ++  parse
   |%
-  ++  pre
-    %+  rust
-      """
-      #N Acorn
-      """
-    %+  more
-      ;~(plug gah (easy ~))
-    ;~  pose
-      ;~(pfix (jest '#N ') (star prn))
-    ==
-    :: %-  plus
-  ::  +hed:
-  ::
-  ::    encodes a header as a $head
-  ::    try "x = 6, y = 2, rule = R2/S23"
-  ::
-  ++  hed
+  ++  test
     |=  dat=tape
-    ^-  head
     %+  scan
       dat
+    ;~(pose ;~(sfix any zap) any)
+  ++  any
+    %+  more
+      ;~(plug gap (easy ~))
+    ;~(pose aut nam men pos hed run)
+  ++  nam
+    (cook |=(t=tape [%name (crip t)]) ;~(pfix (jest '#N ') (star prn)))
+  ++  aut
+    (cook |=(t=tape [%author (crip t)]) ;~(pfix (jest '#O ') (star prn)))
+  ++  men
+    %+  cook
+      |=(t=tape [%comment (crip t)])
+    ;~(pfix ;~(pose (jest '#c ') (jest '#C ')) (star prn))
+  ++  pos
+    ;~  pfix
+      ;~(pose (jest '#P ') (jest '#R '))
+    ::
+      ;~((glue ace) exs why)
+    ==
+  ++  exs
+    ;~  pose
+      (cook |=(x=@ud [%x `@s`(mul 2 x)]) dem)
+      (cook |=(x=@ud [%x `@s`(dec (mul 2 x))]) ;~(pfix hep dem))
+    ==
+  ++  why
+    ;~  pose
+      (cook |=(x=@ud [%y `@s`(mul 2 x)]) dem)
+      (cook |=(x=@ud [%y `@s`(dec (mul 2 x))]) ;~(pfix hep dem))
+    ==
+  ::
+  ++  hed
+    %+  cook
+      |=(h=head [%head h])
     ;~  pose
       %+  cook
         |=([x=@ud y=@ud r=tape] [x=x y=y r=`(crip r)])
@@ -42,16 +74,9 @@
         ;~(pfix (jest ' y = ') dem)
       ==
     ==
-  ::  +run:
   ::
-  ::    encodes a run as a $rows
-  ::    try "b2ob$\0abobo!"
-  ::      
   ++  run
-    |=  dat=tape
-    |^  ^-  rows
-      %-  zing
-      (scan dat ;~(pose ;~(sfix mor zap) mor))
+    |^  (cook |=(r=rows [%row r]) (plus ;~(pose new ran)))
     ::
     ++  mor
       (more ;~(plug gah (easy ~)) (plus ;~(pose new ran)))
@@ -67,8 +92,8 @@
       |=  hav=$@(@t [@ud @t])
       ^-  cell
       ?@  hav
-        ?:(=('b' hav) [%dead 0] [%live 0])
-      ?:(=('b' hav) [%dead -.hav] [%live -.hav])
+        ?:(=('b' hav) [%dead 1] [%live 1])
+      ?:(=('b' +.hav) [%dead -.hav] [%live -.hav])
     --
     :: ;~  pose
     ::   :: this needs to stop parsing
