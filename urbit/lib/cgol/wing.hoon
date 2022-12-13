@@ -130,6 +130,7 @@
       ==
     --
   --
+::  +rle: restore rle from urle
 ::
 ++  rle
   |%
@@ -258,11 +259,14 @@
     %+  cook
       |=(t=tape [%author (crip t)])
     ;~(pfix (jest '#O ') (star prn))
+  ::  +men: read comments
   ::
   ++  men
     %+  cook
       |=(t=tape [%comment (crip t)])
     ;~(pfix ;~(pose (jest '#c ') (jest '#C ')) (star prn))
+  ::  +pos: top left spot
+  ::
   ++  pos
     |^
       %+  cook
@@ -284,6 +288,7 @@
         (cook |=(x=@ud `@s`(dec (mul 2 x))) ;~(pfix hep dem))
       ==
     --
+  ::  +hed: a grid, rules
   ::
   ++  hed
     %+  cook
@@ -304,6 +309,7 @@
         ;~(pfix (jest ' y = ') dem)
       ==
     ==
+  ::  +run: parse a rows
   ::
   ++  run
     (cook |=(r=rows [%row r]) (plus ;~(pose new ran)))

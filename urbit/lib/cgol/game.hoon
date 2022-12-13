@@ -22,8 +22,12 @@
     %-  welp  :_  lst
     (reap +.i.ran ?-(-.i.ran %live %&, %dead %|))
   ==
+::  +worb: run from board
+::
+:: ++  worb
+::   ^-  $-(board rows)
 
-::  +play: iterates the board n moves
+::  +play: iterates a game n moves
 ::
 ++  ngen
   |%
