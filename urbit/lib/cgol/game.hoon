@@ -53,41 +53,19 @@
       $(cur t.cur, x +(x), nel [%| nel])
     ++  friends
       |=  [x=@ud y=@ud ole=board]
+      =+  max-y=(dec y.size.gam)
+      =+  max-x=(dec x.size.gam)
       ;:  add
         ?:(|(=(0 x) =(0 y)) 0 !(snag (dec x) (snag (dec y) ole)))               ::  up-left
         ?:(=(0 y) 0 !(snag x (snag (dec y) ole)))                               ::  up
-        ?:(|(=(0 y) =((dec x.size.gam) x)) 0 !(snag +(x) (snag (dec y) ole)))   ::  up-right
+        ?:(|(=(0 y) =(max-x x)) 0 !(snag +(x) (snag (dec y) ole)))              ::  up-right
         ?:(=(0 x) 0 !(snag (dec x) (snag y ole)))                               ::  left
         :: 0                                                                    ::  me
-        ?:(=((dec x.size.gam) x) 0 !(snag +(x) (snag y ole)))                   ::  right
-        ?:(|(=(0 x) =((dec y.size.gam) y)) 0 !(snag (dec x) (snag +(y) ole)))   ::  down-left
-        ?:(=((dec y.size.gam) y) 0 !(snag x (snag +(y) ole)))                   ::  down
-        ?:  |(=((dec y.size.gam) y) =((dec x.size.gam) x))                      ::  down-bad
-          0
-        !(snag +(x) (snag +(y) ole))
+        ?:(=(max-x x) 0 !(snag +(x) (snag y ole)))                              ::  right
+        ?:(|(=(0 x) =(max-y y)) 0 !(snag (dec x) (snag +(y) ole)))              ::  down-left
+        ?:(=(max-y y) 0 !(snag x (snag +(y) ole)))                              ::  down
+        ?:(|(=(max-y y) =(max-x x)) 0 !(snag +(x) (snag +(y) ole)))             ::  down-bad
       ==
-    ++  exposed
-      |=  [x=@ud y=@ud ole=board]
-      =-  (lth - 2)
-      ;:  add
-        ?:(|(=(0 x) =(0 y)) 0 !(snag (dec x) (snag (dec y) ole)))               ::  up-left
-        ?:(=(0 y) 0 !(snag x (snag (dec y) ole)))                               ::  up
-        ?:(|(=(0 y) =((dec x.size.gam) x)) 0 !(snag +(x) (snag (dec y) ole)))   ::  up-right
-        ?:(=(0 x) 0 !(snag (dec x) (snag y ole)))                               ::  left
-        :: 0                                                                    ::  me
-        ?:(=((dec x.size.gam) x) 0 !(snag +(x) (snag y ole)))                   ::  right
-        ?:(|(=(0 x) =((dec y.size.gam) y)) 0 !(snag (dec x) (snag +(y) ole)))   ::  down-left
-        ?:(=((dec y.size.gam) y) 0 !(snag x (snag +(y) ole)))                   ::  down
-        ?:  |(=((dec y.size.gam) y) =((dec x.size.gam) x))                      ::  down-bad
-          0
-        !(snag +(x) (snag +(y) ole))
-      ==
-    ++  crowded
-      |=  [x=@ud y=@ud ole=board]
-      %|
-    ++  resurrect
-      |=  [x=@ud y=@ud ole=board]
-      %|
     --
   --
 --
