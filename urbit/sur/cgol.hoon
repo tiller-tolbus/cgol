@@ -28,7 +28,7 @@
 ::
 +$  game
   $:  %0
-      size=@ud
+      size=[x=@ud y=@ud]
       step=@ud
       bord=board
   ==
