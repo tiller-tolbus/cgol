@@ -22,6 +22,7 @@
   ==
 ::
 +$  id     @uv
++$  bin    @ub
 +$  games  (map id game)
 +$  lives  (map cord urle)
 +$  board  (list (list ?))
@@ -33,11 +34,27 @@
       bord=board
   ==
 ::
-+$  poke
-  $%  [%rem-life nam=@t ~]
-      [%add-life nam=@t rle=tape]
-    ::
-      [%save-game run=tape]
-      [%drop-game =id]
++$  bame
+  $:  %0
+      size=[x=@ud y=@ud]
+      step=@ud
+      =bin
+  ==
+::
++$  action  $%(life play)
+::
++$  life
+  $%  [%kill nam=@t ~]
+      [%save nam=@t ~]
+      [%rite nam=@t ~]
+      [%read nam=@t rle=tape]
+  ==
+::
++$  play
+  $%
+      [%make x=@ud y=@ud]
+      [%load =id]
+      [%play =id steps=@ud]
+      [%drop =id]
   ==
 --
