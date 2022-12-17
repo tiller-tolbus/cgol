@@ -1,5 +1,38 @@
 /-  *cgol
 |%
+::  +brun: binary from run
+::
+++  brun
+  ^-  $-([rows @ud] bin)
+  |=  [ran=rows x=@ud]
+  =|  bun=@ub
+  |-
+  ?~  ran  bun
+  ?@  i.ran
+    ::  on newline, pad the row
+    =?    bun
+        !=(0 (mod (met 0 bun) x))
+      (rsh 0^(mod (met 0 bun) x) bun)
+    $(ran t.ran)
+  %=    $
+    ran  t.ran
+  ::
+      bun  
+    (cat 0 (fil 0 +.i.ran ?-(-.i.ran %live 0b1, %dead 0b0)) bun)
+  ==
+::
+:: ++  bgen
+::   |%
+::   ++  play
+::     |=  [bam=bame n=@ud]
+::     |^  ^-  game
+::       |-  ?:  =(0 n) [%0 size.bam step.bam bin.bam]
+::       $(bin.gam (volv bin.gam), n (dec n), step.gam +(step.gam))
+::     ++  volv
+::       |=  rab=bin
+
+::   --
+     
 ::  +brow: board from run
 ::
 ++  brow
@@ -32,6 +65,14 @@
 ++  ngen
   |%
   +$  stat  [ole=board nel=(list ?) [x=@ud y=@ud]]
+  ++  make
+    ^-  $-([@ud @ud] game)
+    |=  [x=@ud y=@ud]
+    =|  bud=board
+    =+  dun=(dec y)
+    |-  ^-  game
+    ?:  =(0 dun)  [%0 [x y] 0 bud]
+    $(dun (dec dun), bud [(reap x %|) bud])
   ++  play
     ^-  $-([game @ud] game)
     |=  [gam=game n=@ud]
