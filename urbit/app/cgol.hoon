@@ -56,6 +56,7 @@
   ::
   ++  on-poke
     |=  [mar=mark vaz=vase]
+    ::  poke timer for debugging
     ~>  %bout.[0 '%cgol +on-poke']
     ^-  (quip card _this)
     =^  cards  state
@@ -74,17 +75,18 @@
           ^-  (unit place:rudder)
           ?~  site=(decap:rudder /apps/cgol site.trail)  ~
           ?+  u.site  ~
-            ~          `[%page & %play]     ::  play cgol (should be intro page)
-            [%$ ~]     `[%away /apps/cgol]  ::  redirects (should be intro page)
+            ~          `[%page & %home]     ::  intro page
+            [%$ ~]     `[%away /apps/cgol]  ::  redirects to intro page
             [%play ~]  `[%page & %play]     ::  play cgol
             [%life ~]  `[%away /apps/cgol]  ::  redirects (should list your lives)
+            [%load ~]  `[%page & %load]     ::  saved files
           ==
         ::
           |=  =order:rudder
           ^-  [[(unit reply:rudder) (list card)] [_games _lives]]
           =;  msg=@t  [[`[%code 404 msg] ~] +.state]
           %+  rap  3
-          ~['%gora page ' url.request.order ' not found']
+          ~['%cgol page ' url.request.order ' not found']
         ::
           |=(a=action keel:(wash:eng a))
         ==
@@ -123,10 +125,13 @@
     ~>  %bout.[0 '%cgol +on-init']
     on-leave:def
   --
+::
+::  helper engine
 |_  [bol=bowl:gall dek=(list card) mas=mast]
 +*  dat  .
 ++  emit  |=(=card dat(dek [card dek]))
-++  emil  |=(lac=(list card) dat(dek (welp lac dek)))
+++  emil  |=(lac=(list card) dat(dek (welp (flop lac) dek)))
+::  +abet: wrap up and return deck
 ++  abet
   ^-  (quip card _state)
   [(flop dek) state]
@@ -153,7 +158,9 @@
     %load  dat(mas [%| 'fail'])
     %play  dat(mas [%| 'fail'])
     %drop  dat(mas [%| 'fail'])
+  ::
       %make
+    ::  check to ensure valid size
     ?.  ?&  &(!=(0 x.act) !=(0 y.act))
             &((gth 51 x.act) (gth 51 y.act))
         ==

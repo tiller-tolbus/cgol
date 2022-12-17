@@ -11,6 +11,8 @@
 +$  rows  (list $@(%new cell))
 +$  cell  $%([%dead @ud] [%live @ud])
 +$  head  [x=@ud y=@ud r=(unit @t)]
+::  $urle: pattern at rest
+::
 +$  urle
   $:  %0
       name=(unit @t)
@@ -26,6 +28,7 @@
 +$  games  (map id game)
 +$  lives  (map cord urle)
 +$  board  (list (list ?))
+::  $game: pattern in play
 ::
 +$  game
   $:  %0
