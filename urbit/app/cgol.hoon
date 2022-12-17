@@ -4,7 +4,7 @@
 ::  -  see: https://github.com/jalehman/hoon-life/blob/master/life.hoon
 ::
 /-  *cgol
-/+  rudder
+/+  rudder, c-g=cgol-game
 /+  verb, dbug, default-agent
 ::
 /~  pages  (page:rudder [games lives] action)  /app/cgol
@@ -150,10 +150,22 @@
       '''
     ==
   ::
-    %make  dat(mas [%| 'fail'])
     %load  dat(mas [%| 'fail'])
     %play  dat(mas [%| 'fail'])
     %drop  dat(mas [%| 'fail'])
+      %make
+    ?.  ?&  &(!=(0 x.act) !=(0 y.act))
+            &((gth 51 x.act) (gth 51 y.act))
+        ==
+      dat(mas [%| 'requested game size not allowed'])
+    =+  id=`@uv`(shaw eny.bol 64 (mul x.act y.act))
+    %=    dat
+        mas
+      [%& `@t`(cat 3 'made|' `@t`(scot %uv id))]
+    ::
+        games
+      (~(put by games) id (make:ngen:c-g x.act y.act))
+    ==
   ==
 ::
 ++  init
@@ -180,9 +192,24 @@
     %rite  dat
     %read  dat
   ::
-    %make  dat
+      %make
+    ?>  &(!=(0 x.act) !=(0 y.act))
+    ?>  &((gth 51 x.act) (gth 51 y.act))
+    =+  id=`@uv`(shaw eny.bol 64 (mul x.act y.act))
+    %=    dat
+        games
+      (~(put by games) id (make:ngen:c-g x.act y.act))
+    ==
     %load  dat
     %play  dat
     %drop  dat
+  ::
+      %webp
+    =+  gam=(~(got by games) id.act)
+    %.  !>(`action`[%play id.act steps.act])
+    %=    poke
+        games
+      (~(put by games) id.act gam(bord board.act))
+    ==
   ==
 --

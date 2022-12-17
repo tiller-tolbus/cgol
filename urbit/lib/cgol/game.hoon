@@ -65,6 +65,14 @@
 ++  ngen
   |%
   +$  stat  [ole=board nel=(list ?) [x=@ud y=@ud]]
+  ++  make
+    ^-  $-([@ud @ud] game)
+    |=  [x=@ud y=@ud]
+    =|  bud=board
+    =+  dun=(dec y)
+    |-  ^-  game
+    ?:  =(0 dun)  [%0 [x y] 0 bud]
+    $(dun (dec dun), bud [(reap x %|) bud])
   ++  play
     ^-  $-([game @ud] game)
     |=  [gam=game n=@ud]

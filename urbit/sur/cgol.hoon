@@ -56,5 +56,13 @@
       [%load =id]
       [%play =id steps=@ud]
       [%drop =id]
+      [%webp =id steps=@ud =board]
   ==
+::
+++  stern
+  |%
+  +$  play-steer
+    $%  [%made @uv]
+    ==
+  --
 --
