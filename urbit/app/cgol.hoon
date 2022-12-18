@@ -125,13 +125,18 @@
     ~>  %bout.[0 '%cgol +on-init']
     on-leave:def
   --
+::  |eng: helper engine
 ::
-::  helper engine
 |_  [bol=bowl:gall dek=(list card) mas=mast]
 +*  dat  .
+::  +emit: append a card
+::
 ++  emit  |=(=card dat(dek [card dek]))
+::  +emil: append a list of cards
+::
 ++  emil  |=(lac=(list card) dat(dek (welp (flop lac) dek)))
 ::  +abet: wrap up and return deck
+::
 ++  abet
   ^-  (quip card _state)
   [(flop dek) state]
@@ -140,6 +145,53 @@
 ++  keel
   ^-  $@(@t $:(brief:rudder (list card) $:(_games _lives)))
   ?.(-.mas `@t`p.mas [p.mas dek [games lives]])
+::
+++  init
+  ^+  dat
+  %-  emit
+  =-  [%pass /eyre/connect %arvo %e -]
+  [%connect [[~ [%apps %cgol ~]] dap.bol]]
+::
+++  load
+  |=  vaz=vase
+  ^+  dat
+  ?>  ?=([%0 *] q.vaz)
+  %-  emit(state !<(state-0 vaz))
+  =-  [%pass /eyre/connect %arvo %e -]
+  [%connect [[~ [%apps %cgol ~]] dap.bol]]
+::
+++  poke
+  |=  vaz=vase
+  ^+  dat
+  =+  act=!<(action vaz)
+  ?-  -.act
+    %webp  dat  ::  not used, not crashing
+  ::
+    %kill  dat
+    %save  dat
+    %rite  dat
+    %read  dat
+  ::
+    %load  dat
+    %drop  dat
+  ::
+      %make
+    ?>  &(!=(0 x.act) !=(0 y.act))
+    ?>  &((gth 51 x.act) (gth 51 y.act))
+    =+  id=`@uv`(shaw eny.bol 64 (mul x.act y.act))
+    %=    dat
+        games
+      (~(put by games) id (make:ngen:c-g x.act y.act))
+    ==
+  ::
+      %play
+    =+  gam=(~(got by games) id.act)
+    %=  dat
+        games
+      (~(put by games) id.act (play:ngen:c-g gam steps.act))
+    ==
+  ==
+::  +wash: special handler for rudder pokes
 ::
 ++  wash
   |=  act=action
@@ -195,51 +247,5 @@
         games
       (~(put by games) id (make:ngen:c-g x.act y.act))
     ==
-  ==
-::
-++  init
-  ^+  dat
-  %-  emit
-  =-  [%pass /eyre/connect %arvo %e -]
-  [%connect [[~ [%apps %cgol ~]] dap.bol]]
-::
-++  load
-  |=  vaz=vase
-  ^+  dat
-  ?>  ?=([%0 *] q.vaz)
-  %-  emit(state !<(state-0 vaz))
-  =-  [%pass /eyre/connect %arvo %e -]
-  [%connect [[~ [%apps %cgol ~]] dap.bol]]
-::
-++  poke
-  |=  vaz=vase
-  ^+  dat
-  =+  act=!<(action vaz)
-  ?-  -.act
-    %webp  dat  ::  not used, not crashing
-  ::
-    %kill  dat
-    %save  dat
-    %rite  dat
-    %read  dat
-  ::
-      %make
-    ?>  &(!=(0 x.act) !=(0 y.act))
-    ?>  &((gth 51 x.act) (gth 51 y.act))
-    =+  id=`@uv`(shaw eny.bol 64 (mul x.act y.act))
-    %=    dat
-        games
-      (~(put by games) id (make:ngen:c-g x.act y.act))
-    ==
-  ::
-      %play
-    =+  gam=(~(got by games) id.act)
-    %=  dat
-        games
-      (~(put by games) id.act (play:ngen:c-g gam steps.act))
-    ==
-  ::
-    %load  dat
-    %drop  dat
   ==
 --
