@@ -159,6 +159,28 @@
     %play  dat(mas [%| 'fail'])
     %drop  dat(mas [%| 'fail'])
   ::
+      %webp
+    ?.  &((gth steps.act 0) (gth 51 steps.act))
+      dat(mas [%| 'you\'re asking too much of me.'])
+    ?~  gam=(~(get by games) id.act)
+      dat(mas [%| 'your game no longer exists rip'])
+    ~&  >>  (play:ngen:c-g u.gam(bord board.act) 1)
+    %.  !>(`action`[%play id.act 1])
+    %=    poke
+        games
+      (~(put by games) id.act u.gam(bord board.act))
+    ::
+        mas
+      :-  %&
+      ^-  @t
+      %+  rap  3
+      :~  'live|'
+          (scot %uv id.act)
+          '|'
+          (scot %ud (dec steps.act))
+      ==
+    ==
+  ::
       %make
     ::  check to ensure valid size
     ?.  ?&  &(!=(0 x.act) !=(0 y.act))
@@ -168,7 +190,7 @@
     =+  id=`@uv`(shaw eny.bol 64 (mul x.act y.act))
     %=    dat
         mas
-      [%& `@t`(cat 3 'made|' `@t`(scot %uv id))]
+      [%& `@t`(cat 3 'made|' (scot %uv id))]
     ::
         games
       (~(put by games) id (make:ngen:c-g x.act y.act))
@@ -194,6 +216,8 @@
   ^+  dat
   =+  act=!<(action vaz)
   ?-  -.act
+    %webp  dat  ::  not used, not crashing
+  ::
     %kill  dat
     %save  dat
     %rite  dat
@@ -207,16 +231,15 @@
         games
       (~(put by games) id (make:ngen:c-g x.act y.act))
     ==
-    %load  dat
-    %play  dat
-    %drop  dat
   ::
-      %webp
+      %play
     =+  gam=(~(got by games) id.act)
-    %.  !>(`action`[%play id.act steps.act])
-    %=    poke
+    %=  dat
         games
-      (~(put by games) id.act gam(bord board.act))
+      (~(put by games) id.act (play:ngen:c-g gam steps.act))
     ==
+  ::
+    %load  dat
+    %drop  dat
   ==
 --

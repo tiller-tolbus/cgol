@@ -15,22 +15,46 @@
     ?-  -.fig-hed
         %made
       :-  %next
-      :_  'constructing new cgol board'
-      `@t`(cat 3 'play?game=' (scot %uv +.fig-hed))
+      :_  ~
+      `@t`(cat 3 'play?game=' (scot %uv id.fig-hed))
     ::
+        %live
+      :-  %next
+      :_  'a generation has passed'
+      ^-  @t
+      %+  rap  3
+      :~  'play?game='
+          (scot %uv id.fig-hed)
+        ::
+          '&left='
+          (scot %ud lef.fig-hed)
+        ::
+          '&auto=false'
+      ==
     ==
   ;;  play-steer:stern
   %+  rash
     msg
   ;~  pose
     ;~  (glue bar)
-      sym
+      (jest 'made')
     ::
       %+  cook
         |=(t=tape `@uv`(slav %uv (crip t)))
       (star ;~(pose aln dot))
     ==
   ::
+    ;~  (glue bar)
+      (jest 'live')
+    ::
+      %+  cook
+        |=(t=tape `@uv`(slav %uv (crip t)))
+      (star ;~(pose aln dot))
+    ::
+      %+  cook
+        |=(t=tape `@ud`(slav %ud (crip t)))
+      (star ;~(pose aln dot))
+    ==
   ==
 ::
 ++  argue
@@ -58,21 +82,22 @@
           `@uv`(slav %uv (need ud))
         `@ud`(slav %ud (need sep))
       bin
-    =+  ax=(need ux)
-    =+  wa=(need wu)
+    =+  ax=`@ud`(slav %ud (need ux))
+    =+  wa=`@ud`(slav %ud (need wu))
     =|  bun=board
     =|  lst=(list ?)
     =|  ex=@ud
     =|  wy=@ud
     |-  ^-  _bun
-    ?:  =(ax +(ex))
-      ?:  =(wa +(wy))  [(flop lst) bun]
+    ?:  =(ax ex)
+      ?:  =(wa +(wy))  (flop [(flop lst) bun])
       $(lst ~, ex 0, wy +(wy), bun [(flop lst) bun])
     %=    $
       ex  +(ex)
     ::
         lst
       :_  lst
+      ::
       %-  ~(has by args)
       (crip "cell-{(scow %ud ex)}-{(scow %ud wy)}")
     ==
@@ -130,6 +155,7 @@
             ;+  ~(show-game make gam lef aut gud)
           ==
         ==
+      ::
       ::
         :: ;script:"{(trip scrp)}"
       ==

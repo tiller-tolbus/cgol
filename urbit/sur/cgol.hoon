@@ -65,7 +65,8 @@
 ++  stern
   |%
   +$  play-steer
-    $%  [%made @uv]
+    $%  [%made id=@uv]
+        [%live id=@uv lef=@ud]
     ==
   --
 --

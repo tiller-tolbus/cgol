@@ -71,7 +71,7 @@
     =|  bud=board
     =+  dun=(dec y)
     |-  ^-  game
-    ?:  =(0 dun)  [%0 [x y] 0 bud]
+    ?:  =(0 dun)  [%0 [x y] 0 [(reap x %|) bud]]
     $(dun (dec dun), bud [(reap x %|) bud])
   ++  play
     ^-  $-([game @ud] game)
