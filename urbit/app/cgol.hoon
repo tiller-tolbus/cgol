@@ -10,11 +10,9 @@
 /~  pages  (page:rudder [games lives] action)  /app/cgol
 ::
 |%
-::
 +$  versioned-state  $%(state-0)
 ::
 +$  state-0  [%0 =games =lives]
-::
 ::
 ::  boilerplate
 ::
@@ -216,7 +214,6 @@
       dat(mas [%| 'you\'re asking too much of me.'])
     ?~  gam=(~(get by games) id.act)
       dat(mas [%| 'your game no longer exists rip'])
-    ~&  >>  (play:ngen:c-g u.gam(bord board.act) 1)
     %.  !>(`action`[%play id.act 1])
     %=    poke
         games

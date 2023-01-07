@@ -1,7 +1,7 @@
 :~  title+'cgol'
-    info+'mine?'
-    color+0xff.4400
-    image+'https://freedom-club.sfo2.digitaloceanspaces.com/props/quartus/long-logo/ab_Quartus-05_only.png'
+    info+'life is beautiful'
+    color+0xff.ffff
+    image+'https://freedom-club.sfo2.digitaloceanspaces.com/cgol-final-tile.svg'
     version+[0 0 1]
     website+'https://dalten.org/'
     license+'REKT'

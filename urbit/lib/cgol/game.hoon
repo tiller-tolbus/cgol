@@ -113,37 +113,41 @@
       ==
     --
   --
-  ::  +mate: insert pattern at point
+::  +mate: insert pattern at point
+::
+++  mate
+  |=  [gent=game lass=game hole=[x=@ud y=@ud]]
+  ^-  game
+  ::  trim gent
+  =.  size.gent
+    :-  
+      ?.  (gth (add x.size.gent x.hole) x.size.lass)
+        x.size.gent
+      (sub x.size.lass x.hole)
+    ?.  (gth (add y.size.gent y.hole) y.size.lass)
+      y.size.gent
+    (sub y.size.lass y.hole)
+  ::  colonize
+  =|  i=@ud
+  =|  j=@ud
+  |-  
+  =*  outer  $
+  ?:  (gth i (dec x.size.gent))
+    lass
+  =.  j  0
+  |-  
+  ?:  (gth j (dec y.size.gent))
+    outer(i +(i))
+  %=  $
+    j  +(j)
   ::
-  ++  mate
-    |=  [gent=game lass=game hole=[x=@ud y=@ud]]
-    ^-  game
-    ::  trim gent
-    =.  size.gent
-      :-  
-        ?.  (gth (add x.size.gent x.hole) x.size.lass)
-          x.size.gent
-          (sub x.size.lass x.hole)
-        ?.  (gth (add y.size.gent y.hole) y.size.lass)
-          y.size.gent
-          (sub y.size.lass y.hole)
-    ::  colonize
-    =/  i=@ud  0
-    =/  j=@ud  0
-    |-  
-    =*  outer  $
-    ?:  (gth i (dec x.size.gent))
-      lass
-    =/  j  0
-    |-  
-    ?:  (gth j (dec y.size.gent))
-      outer(i +(i))
-    %=  $
-      j  +(j)
       bord.lass
-        %^  snap  bord.lass  (add x.hole i)
-          %^  snap
-            (snag (add i x.hole) bord.lass)  (add j y.hole)
-            (snag i (snag j bord.gent))
-    ==
+    %^    snap
+        bord.lass
+      (add x.hole i)
+    %^    snap
+        (snag (add i x.hole) bord.lass)
+      (add j y.hole)
+    (snag i (snag j bord.gent))
+  ==
 --
