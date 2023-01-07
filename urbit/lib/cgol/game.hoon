@@ -113,4 +113,44 @@
       ==
     --
   --
+  ::  +mate: insert pattern at point
+  ::
+  ++  mate
+    |=  [gent=game lass=game tile=[x=@ud y=@ud]]
+    ^-  game
+    ::  trim gent
+    =.  size.gent
+      :-  
+        ?.  (gth (add x.size.gent x.tile) x.size.lass)
+          x.size.gent
+          (sub x.size.lass x.tile)
+        ?.  (gth (add y.size.gent y.tile) y.size.lass)
+          y.size.gent
+          (sub y.size.lass y.tile)
+    ::  
+    =/  i=@ud  0
+    =/  j=@ud  0
+    |-  
+    =*  inner  $
+    ?:  (gth i (dec x.size.gent))
+      lass
+    =/  j  0
+    |-  
+    ?:  (gth j (dec y.size.gent))
+      inner(i +(i))
+    %=    $
+        j  +(j)
+        bord.lass
+      ^-  (list (list ?))
+      %^  snap
+        bord.lass
+        (add x.tile i)
+        %^  snap
+          %+  snag 
+            (add i x.tile)  bord.lass
+          (add j y.tile)
+          %+  snag
+            ~&  j
+            i  (snag j bord.gent)
+    ==
 --
