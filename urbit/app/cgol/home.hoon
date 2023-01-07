@@ -8,7 +8,7 @@
 ^-  (page:rudder [games lives] play)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
 ++  final
-    |=  [suc=? msg=brief:rudder]
+  |=  [suc=? msg=brief:rudder]
   =/  args=(map @t @t)
     (malt +:(purse:rudder url.request.odo))
   ?.  suc  (build ~(tap by args) `[%| msg])
@@ -30,7 +30,6 @@
         |=(t=tape `@uv`(slav %uv (crip t)))
       (star ;~(pose aln dot))
     ==
-  ::
   ==
 ::
 ++  argue
@@ -70,7 +69,7 @@
     ::
       ;body
         ;div(class "container")
-          ;div(class "banner")
+          ;div(class "banner", onclick "window.location.href = './cgol'")
             ;h3:"conway's game of life"
           ==
         ::
@@ -89,7 +88,7 @@
               ==
             ::
               ;div(class "load-game")
-                ;h3:"load game: "
+                ;h3:"continue existing game: "
               ::
                 ;button(onclick "window.location.href = './cgol/load'")
                   ;svg(xmlns "http://www.w3.org/2000/svg", height "40", width "40")
@@ -101,7 +100,7 @@
           ==
         ::
           ;div(class "footer")
-            ;h3:"made with locally sourced, artisinal hoon"
+            ;h3:"made with locally sourced artisinal hoon"
             ;h3:"by chorus one x quartus co"
           ==
         ==
@@ -187,6 +186,7 @@
       border: 5px solid;
       border-image: linear-gradient(to left, #23a7dd, #76ee90) 1;
       text-shadow: -2px 2px 1px #03e070;
+      cursor: pointer;
     }
 
     .banner h3 {
@@ -216,7 +216,7 @@
       justify-content: center;
       width: 60vmin;
       height: 10vh;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
@@ -230,7 +230,7 @@
       justify-content: center;
       width: 60vmin;
       height: 10vh;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;

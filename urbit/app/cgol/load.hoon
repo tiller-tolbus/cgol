@@ -1,23 +1,54 @@
 ::
 ::  game - see your game files
 ::
-::
 /-  *cgol
 /+  rudder, *cgol-sail
 ::
+::
 ^-  (page:rudder [games lives] play)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
-++  final  (alert:rudder 'tiket' build)
+++  final
+  |=  [suc=? msg=brief:rudder]
+  =/  args=(map @t @t)
+    (malt +:(purse:rudder url.request.odo))
+  ?.  suc  (build ~(tap by args) `[%| msg])
+  =;  fig-hed=play-steer:stern
+    ?+  -.fig-hed  !!
+        %kilt
+      :-  %next
+      :-  'load'
+      %^  cat  3
+        'killed game '
+      (crip (oust [0 2] (scow %q id.fig-hed)))
+    ==
+  ;;  play-steer:stern
+  %+  rash
+    msg
+  ;~  pose
+    ;~  (glue bar)
+      sym
+    ::
+      %+  cook
+        |=(t=tape `@uv`(slav %uv (crip t)))
+      (star ;~(pose aln dot))
+    ==
+  ==
 ::
 ++  argue
   |=  [headers=header-list:http body=(unit octs)]
   ^-  $@(brief:rudder play)
+  =+  err='500: something went wrong'
   =/  args=(map @t @t)
     ?~(body ~ (frisk:rudder q.u.body))
-  ?.  (~(has by args) 'REPLACE ME')
-    'unsatisfactory post action'
+  ?.  (~(has by args) 'act')           err
   ?>  authenticated.odo
-  'REPLACE ME'
+  =+  act=(~(got by args) 'act')
+  ?+    act  (rap 3 ~[err ' - ' act])
+      %drop-game
+    ?~  id=(~(get by args) 'game')   err
+    ~&  >>>  u.id
+    [%drop `@uv`(slav %uv u.id)]
+  ==
 ::
 ++  build
   |=  $:  args=(list [k=@t v=@t])
@@ -43,7 +74,7 @@
     ::
       ;body
         ;div(class "container")
-          ;div(class "banner")
+          ;div(class "banner", onclick "window.location.href = './'")
             ;h3:"conway's game of life"
           ==
         ::
@@ -56,11 +87,16 @@
         ::
           ;div(class "main")
             ;div(class "toolbar")
-              ;p:"put link back to main page - toolbar"
+              ;p:"manage your existing games"
             ==
             ;div(class "list")
               ;+  (list-them:make gam.sat)
             ==
+          ==
+        ::
+          ;div(class "footer")
+            ;h3:"made with locally sourced artisinal hoon"
+            ;h3:"by chorus one x quartus co"
           ==
         ==
       ::
@@ -130,7 +166,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
@@ -155,6 +191,7 @@
       border: 5px solid;
       border-image: linear-gradient(to left, #23a7dd, #76ee90) 1;
       text-shadow: -2px 2px 1px #03e070;
+      cursor: pointer;
     }
 
     .banner h3 {
@@ -175,6 +212,40 @@
       position: absolute;
       justify-content: center;
       align-items: center;
+      color: #fff;
+    }
+
+    .list-space {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 39vh;
+    }
+
+    .list-space tbody {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 80%;
+    }
+
+    .list-row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    .list-gid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .area {
@@ -305,6 +376,26 @@
         opacity: 0;
         border-radius: 50%;
       }
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 0;
+      width: 80vw;
+      height: 5vh;
+      color: white;
+      box-shadow: 0 0 2rem 0 rgba(0, 74, 56, 63%); 
+      border-radius: 5px;
+      background-color: rgba(11, 82, 85, 40%);
+      backdrop-filter: blur(5px);
+    }
+
+    .footer h3 {
+      font-size: 14px;
     }
     '''
   --

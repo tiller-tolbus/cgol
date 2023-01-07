@@ -20,7 +20,7 @@
 +$  mast  (each brief:rudder @t)
 --
 ::
-%+  verb  &
+%+  verb  |
 %-  agent:dbug
 =|  state-0
 =*  state  -
@@ -171,7 +171,7 @@
     %read  dat
   ::
     %load  dat
-    %drop  dat
+    %drop  dat(games (~(del by games) id.act))
   ::
       %make
     ?>  &(!=(0 x.act) !=(0 y.act))
@@ -207,7 +207,11 @@
   ::
     %load  dat(mas [%| 'fail'])
     %play  dat(mas [%| 'fail'])
-    %drop  dat(mas [%| 'fail'])
+    %drop
+    ?~  gam=(~(get by games) id.act)
+      dat(mas [%| 'i was unable to find that game'])
+    %.  !>(`action`[%drop id.act])
+    poke(mas [%& (cat 3 'kilt|' (scot %uv id.act))])
   ::
       %webp
     ?.  &((gth steps.act 0) (gth 51 steps.act))

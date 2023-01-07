@@ -12,7 +12,7 @@
     (malt +:(purse:rudder url.request.odo))
   ?.  suc  (build ~(tap by args) `[%| msg])
   =;  fig-hed=play-steer:stern
-    ?-  -.fig-hed
+    ?+  -.fig-hed  !!
         %made
       :-  %next
       :_  ~
@@ -139,7 +139,7 @@
     ::
       ;body
         ;div(class "container")
-          ;div(class "banner")
+          ;div(class "banner", onclick "window.location.href = './'")
             ;h3:"conway's game of life"
           ==
         ::
@@ -158,6 +158,11 @@
             ;div(class "game")
               ;+  ~(show-game make gam lef aut gud)
             ==
+          ==
+        ::
+          ;div(class "footer")
+            ;h3:"made with locally sourced artisinal hoon"
+            ;h3:"by chorus one x quartus co"
           ==
         ==
       ==
@@ -273,7 +278,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
@@ -298,6 +303,7 @@
       border: 5px solid;
       border-image: linear-gradient(to left, #23a7dd, #76ee90) 1;
       text-shadow: -2px 2px 1px #03e070;
+      cursor: pointer;
     }
 
     .banner h3 {
@@ -508,7 +514,7 @@
       align-items: center;
       justify-content: center;
       height: 5vh;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
@@ -567,6 +573,26 @@
     .play-function h3 {
       font-size: 12px;
       color: #fff;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 0;
+      width: 80vw;
+      height: 5vh;
+      color: white;
+      box-shadow: 0 0 2rem 0 rgba(0, 74, 56, 63%); 
+      border-radius: 5px;
+      background-color: rgba(11, 82, 85, 40%);
+      backdrop-filter: blur(5px);
+    }
+
+    .footer h3 {
+      font-size: 14px;
     }
     '''
   ++  gradient

@@ -67,6 +67,7 @@
   +$  play-steer
     $%  [%made id=@uv]
         [%live id=@uv lef=@ud]
+        [%kilt id=@uv]
     ==
   --
 --
