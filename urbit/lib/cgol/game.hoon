@@ -131,13 +131,13 @@
     =/  i=@ud  0
     =/  j=@ud  0
     |-  
-    =*  inner  $
+    =*  outer  $
     ?:  (gth i (dec x.size.gent))
       lass
     =/  j  0
     |-  
     ?:  (gth j (dec y.size.gent))
-      inner(i +(i))
+      outer(i +(i))
     %=  $
       j  +(j)
       bord.lass
