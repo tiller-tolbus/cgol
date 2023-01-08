@@ -1,6 +1,6 @@
 # cgol
 
-**cgol** is a single-player game of cells on a grid. The objective is to have fun and learn more about Life. 
+**cgol** is a single-player game of cells on a grid. The objective is to have fun and learn about Life. 
 
 # Installation
 
