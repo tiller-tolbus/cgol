@@ -56,7 +56,6 @@
 +$  play
   $%
       [%make x=@ud y=@ud]
-      [%load =id]
       [%play =id steps=@ud]
       [%drop =id]
       [%webp =id steps=@ud =board]
@@ -68,6 +67,10 @@
     $%  [%made id=@uv]
         [%live id=@uv lef=@ud]
         [%kilt id=@uv]
+    ==
+  +$  life-steer
+    $%  [%read nam=@t]
+        [%kild nam=@t]
     ==
   --
 --

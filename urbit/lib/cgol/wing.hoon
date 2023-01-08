@@ -216,6 +216,7 @@
   ::
   ++  par
     |=  dat=tape
+    ^-  urle
     (scan dat (cook hot ;~(pose ;~(sfix any zap) any)))
   ::  +hot: reform result
   ::

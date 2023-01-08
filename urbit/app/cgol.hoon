@@ -2,9 +2,9 @@
 ::  cgol - by chorusone and quartus
 ::  -  dedicated to josh lehman
 ::  -  see: https://github.com/jalehman/hoon-life/blob/master/life.hoon
-::
+:::
 /-  *cgol
-/+  rudder, c-g=cgol-game
+/+  rudder, c-g=cgol-game, c-w=cgol-wing
 /+  verb, dbug, default-agent
 ::
 /~  pages  (page:rudder [games lives] action)  /app/cgol
@@ -76,8 +76,9 @@
             ~          `[%page & %home]     ::  intro page
             [%$ ~]     `[%away /apps/cgol]  ::  redirects to intro page
             [%play ~]  `[%page & %play]     ::  play cgol
-            [%life ~]  `[%away /apps/cgol]  ::  redirects (should list your lives)
+            [%life ~]  `[%page & %life]     ::  see lives
             [%load ~]  `[%page & %load]     ::  saved files
+            [%port ~]  `[%page & %port]     ::  import rle files as lives
           ==
         ::
           |=  =order:rudder
@@ -165,12 +166,29 @@
   ?-  -.act
     %webp  dat  ::  not used, not crashing
   ::
-    %kill  dat
     %save  dat
-    %rite  dat
-    %read  dat
+    %kill  dat(lives (~(del by lives) nam.act))
   ::
-    %load  dat
+      %rite
+    =/  life=urle                                       ::  a life
+      (~(got by lives) nam.act)
+    =+  siz=(mul 2 (max x.head.life y.head.life))
+    =/  sta=@ud
+      (sub siz (div (max x.head.life y.head.life) 2))
+    ?>  (gte 25 siz)
+    =/  newb=game  (make:ngen:c-g [siz siz])
+    =/  quab=game
+      :^    %0
+          [x.head.life y.head.life]
+        0
+      (brow:c-g rows.life x.head.life)
+    dat
+  ::
+      %read
+    %=  dat
+      lives  (~(put by lives) nam.act (par:parse:c-w rle.act))
+    ==
+  ::
     %drop  dat(games (~(del by games) id.act))
   ::
       %make
@@ -204,9 +222,16 @@
       cgol, gh ~tiller-tolbus/cgol
       '''
     ==
+    %play  dat(mas [%| 'for offline play'])
   ::
-    %load  dat(mas [%| 'fail'])
-    %play  dat(mas [%| 'fail'])
+      %read
+    %.  !>(`action`[%read nam.act rle.act])
+    poke(mas [%& (cat 3 'read|' nam.act)])
+  ::
+      %kill
+    %.  !>(`action`[%kill nam.act ~])
+    poke(mas [%& (cat 3 'kild|' (crip (cass (trip nam.act))))])
+  ::
     %drop
     ?~  gam=(~(get by games) id.act)
       dat(mas [%| 'i was unable to find that game'])

@@ -1,11 +1,10 @@
 ::
 ::  home - play cgol
 ::
-::
 /-  *cgol
 /+  rudder, *cgol-sail
 ::
-^-  (page:rudder [games lives] play)
+^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
 ++  final
   |=  [suc=? msg=brief:rudder]
@@ -34,7 +33,7 @@
 ::
 ++  argue
   |=  [headers=header-list:http body=(unit octs)]
-  ^-  $@(brief:rudder play)
+  ^-  $@(brief:rudder action)
   =+  err='500: something went wrong'
   =/  args=(map @t @t)
     ?~(body ~ (frisk:rudder q.u.body))
@@ -45,7 +44,7 @@
       %make-game
     ?~  siz=(~(get by args) 'range')   err
     =+  xy=(slav %ud u.siz)
-    [%make xy xy]
+    `action`[%make xy xy]
   ==
 ::
 ++  build
@@ -83,16 +82,42 @@
           ;div(class "main")
             ;div(class "options")
               ;div(class "new-game")
-                ;h3:"new game: "
+                ;h1:"new game"
                 ;+  make-game:make
               ==
             ::
+              ;br;
+            ::
               ;div(class "load-game")
-                ;h3:"continue existing game: "
+                ;h1:"active games"
               ::
                 ;button(onclick "window.location.href = './cgol/load'")
-                  ;svg(xmlns "http://www.w3.org/2000/svg", height "40", width "40")
-                    ;path(fill "#fff", d "M7.792 35q-1.125 0-1.959-.833Q5 33.333 5 32.208V7.792q0-1.125.833-1.959Q6.667 5 7.792 5h24.416q1.125 0 1.959.833.833.834.833 1.959v24.416q0 1.125-.833 1.959-.834.833-1.959.833h-8.041v-2.792h8.041V10.542H7.792v21.666h8.041V35Zm10.833 0V23.708l-3.208 3.167-1.959-2L20 18.333l6.542 6.542-1.959 2-3.208-3.167V35Z");
+                  ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
+                    ;path(fill "#fff", d "m9.5 16.5 7-4.5-7-4.5ZM12 22q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175 1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138 1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175-1.35 1.35-3.175 2.137Q14.075 22 12 22Zm0-2q3.35 0 5.675-2.325Q20 15.35 20 12q0-3.35-2.325-5.675Q15.35 4 12 4 8.65 4 6.325 6.325 4 8.65 4 12q0 3.35 2.325 5.675Q8.65 20 12 20Zm0-8Z");
+                  ==
+                ==
+              ==
+            ::
+              ;br;
+            ::
+              ;div(class "port-life")
+                ;h1:"import pattern"
+              ::
+                ;button(onclick "window.location.href = './cgol/port'")
+                  ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
+                    ;path(fill "#fff", d "M11 20v-8.15l-2.6 2.6L7 13l5-5 5 5-1.4 1.45-2.6-2.6V20ZM4 9V6q0-.825.588-1.412Q5.175 4 6 4h12q.825 0 1.413.588Q20 5.175 20 6v3h-2V6H6v3Z");
+                  ==
+                ==
+              ==
+            ::
+              ;br;
+            ::
+              ;div(class "port-life")
+                ;h1:"saved patterns"
+              ::
+                ;button(onclick "window.location.href = './cgol/life'")
+                  ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
+                    ;path(fill "#fff", d "M8.8 21H5q-.825 0-1.413-.587Q3 19.825 3 19v-3.8q1.2 0 2.1-.762.9-.763.9-1.938 0-1.175-.9-1.938Q4.2 9.8 3 9.8V6q0-.825.587-1.412Q4.175 4 5 4h4q0-1.05.725-1.775Q10.45 1.5 11.5 1.5q1.05 0 1.775.725Q14 2.95 14 4h4q.825 0 1.413.588Q20 5.175 20 6v4q1.05 0 1.775.725.725.725.725 1.775 0 1.05-.725 1.775Q21.05 15 20 15v4q0 .825-.587 1.413Q18.825 21 18 21h-3.8q0-1.25-.787-2.125Q12.625 18 11.5 18t-1.912.875Q8.8 19.75 8.8 21ZM5 19h2.125q.6-1.65 1.925-2.325Q10.375 16 11.5 16q1.125 0 2.45.675 1.325.675 1.925 2.325H18v-6h2q.2 0 .35-.15.15-.15.15-.35 0-.2-.15-.35Q20.2 12 20 12h-2V6h-6V4q0-.2-.15-.35-.15-.15-.35-.15-.2 0-.35.15Q11 3.8 11 4v2H5v2.2q1.35.5 2.175 1.675Q8 11.05 8 12.5q0 1.425-.825 2.6T5 16.8Zm7.75-7.75Z");
                   ==
                 ==
               ==
@@ -100,7 +125,7 @@
           ==
         ::
           ;div(class "footer")
-            ;h3:"made with locally sourced artisinal hoon"
+            ;h3:"made with locally sourced artisanal hoon"
             ;h3:"by chorus one x quartus co"
           ==
         ==
@@ -215,7 +240,7 @@
       align-items: center;
       justify-content: center;
       width: 60vmin;
-      height: 10vh;
+      height: 7vh;
       background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -223,6 +248,20 @@
     }
 
     .load-game {
+      display: flex;
+      color: #fff;
+      font-size: 12px;
+      align-items: center;
+      justify-content: center;
+      width: 60vmin;
+      height: 10vh;
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    .port-life {
       display: flex;
       color: #fff;
       font-size: 12px;
@@ -411,12 +450,23 @@
     output {
       display: flex;
       color: #fff;
-      font-size: 10px;
+      font-size: 12px;
+    }
+
+    output[id="m-output"] {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 3vw;
     }
 
     output[id="m-output"]:before {
-      content: "board size: ";
-      font-weight: bold;
+      content: "size ";
+      display: block;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .footer {

@@ -4,7 +4,7 @@
 /-  *cgol
 /+  rudder, *cgol-sail
 ::
-^-  (page:rudder [games lives] play)
+^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
 ++  final
   |=  [suc=? msg=brief:rudder]
@@ -61,7 +61,7 @@
 ::
 ++  argue
   |=  [headers=header-list:http body=(unit octs)]
-  ^-  $@(brief:rudder play)
+  ^-  $@(brief:rudder action)
   =+  err='500: something went wrong'
   =/  args=(map @t @t)
     ?~(body ~ (frisk:rudder q.u.body))
@@ -72,7 +72,7 @@
       %make-game
     ?~  siz=(~(get by args) 'range')   err
     =+  xy=(slav %ud u.siz)
-    [%make xy xy]
+    `action`[%make xy xy]
   ::
       %play-game
     ?~  sep=(~(get by args) 'cycles')  err
@@ -80,6 +80,7 @@
     ?~  ux=(~(get by args) 'x')        err
     ?~  wu=(~(get by args) 'y')        err
     =;  bin=board
+      ^-  action
       :^    %webp
           `@uv`(slav %uv (need ud))
         `@ud`(slav %ud (need sep))
@@ -161,7 +162,7 @@
           ==
         ::
           ;div(class "footer")
-            ;h3:"made with locally sourced artisinal hoon"
+            ;h3:"made with locally sourced artisanal hoon"
             ;h3:"by chorus one x quartus co"
           ==
         ==

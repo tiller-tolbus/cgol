@@ -1,9 +1,8 @@
 ::
-::  game - see your game files
+::  home - play cgol
 ::
 /-  *cgol
 /+  rudder, *cgol-sail
-::
 ::
 ^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
@@ -12,26 +11,18 @@
   =/  args=(map @t @t)
     (malt +:(purse:rudder url.request.odo))
   ?.  suc  (build ~(tap by args) `[%| msg])
-  =;  fig-hed=play-steer:stern
+  =;  fig-hed=life-steer:stern
     ?+  -.fig-hed  !!
-        %kilt
+        %kild
       :-  %next
-      :-  'load'
-      %^  cat  3
-        'killed game '
-      (crip (oust [0 2] (scow %q id.fig-hed)))
+      :-  './life'
+      (cat 3 'deleted a life - ' +.fig-hed)
     ==
-  ;;  play-steer:stern
+  ;;  life-steer:stern
   %+  rash
     msg
   ;~  pose
-    ;~  (glue bar)
-      sym
-    ::
-      %+  cook
-        |=(t=tape `@uv`(slav %uv (crip t)))
-      (star ;~(pose aln dot))
-    ==
+    ;~((glue bar) sym sym)
   ==
 ::
 ++  argue
@@ -44,9 +35,9 @@
   ?>  authenticated.odo
   =+  act=(~(got by args) 'act')
   ?+    act  (rap 3 ~[err ' - ' act])
-      %drop-game
-    ?~  id=(~(get by args) 'game')   err
-    `action`[%drop `@uv`(slav %uv u.id)]
+      %kill-life
+    ?~  nam=(~(get by args) 'name')   err
+    `action`[%kill u.nam ~]
   ==
 ::
 ++  build
@@ -55,15 +46,12 @@
       ==
   ^-  reply:rudder
   =+  arg=(malt args)
-  =/  gam=(unit game)
-    ?~  g=(~(get by arg) 'game')  ~
-    (~(get by gam.sat) (slav %uv u.g))
   |^  [%page page]
   ++  page
     ^-  manx
     ;html
       ;head
-        ;title:"cgol - play"
+        ;title:"cgol - home"
         ;style:"{(trip styl)}"
         ;meta(charset "utf-8");
         ;meta
@@ -85,12 +73,7 @@
           ==
         ::
           ;div(class "main")
-            ;div(class "toolbar")
-              ;p:"manage your existing games"
-            ==
-            ;div(class "list")
-              ;+  (list-them:make gam.sat)
-            ==
+            ;+  them
           ==
         ::
           ;div(class "footer")
@@ -115,12 +98,66 @@
           ==
         ==
       ::
-        :: ;script:"{(trip scrp)}"
+        ;script:"{(trip scrp)}"
       ==
     ==
+  ++  them
+    ^-  manx
+    =;  lives=marl
+      ;table(class "list-space")
+        ;*  lives
+      ==
+    %+  turn  ~(tap by liv.sat)
+    |=  [n=cord u=urle]
+    =+  nam=?~(name.u 'unnamed' u.name.u)
+    =+  aut=?~(author.u 'unknown author' u.author.u)
+    =+  com=?~(comments.u ' - ' u.comments.u)
+    ^-  manx
+    ;tr(class "list-row")
+      ;td
+        ;p:"nickname: {(trip n)}"
+      ==
+    ::
+      ;td
+        ;p:"given name: {(trip nam)}"
+      ==
+    ::
+      ;td
+        ;p:"author: {(trip aut)}"
+      ==
+    ::
+      ;td
+        ;p:"comments: {(trip com)}"
+      ==
+    ::
+      ;td
+        ;form(method "post")
+          ;input(name "act", id "l-act", value "kill-life", style "display: none;");
+          ;input(name "name", id "l-name", value "{(trip n)}", style "display: none;");
+          ;button
+            ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
+              ;path(fill "#fff", d "m8.4 17 3.6-3.6 3.6 3.6 1.4-1.4-3.6-3.6L17 8.4 15.6 7 12 10.6 8.4 7 7 8.4l3.6 3.6L7 15.6Zm3.6 5q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175 1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138 1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175-1.35 1.35-3.175 2.137Q14.075 22 12 22Zm0-2q3.35 0 5.675-2.325Q20 15.35 20 12q0-3.35-2.325-5.675Q15.35 4 12 4 8.65 4 6.325 6.325 4 8.65 4 12q0 3.35 2.325 5.675Q8.65 20 12 20Zm0-8Z");
+            ==
+          ==
+        ==
+      ==
+    ==
+
   ++  scrp
     '''
-    test
+    function setRangeBackground(rangeId, outputId) {
+      // get the range input and output elements by their IDs
+      const range = document.getElementById(rangeId);
+      const output = document.getElementById(outputId);
+      // calculate the background gradient value based on the current value of the range input
+      const value = (range.value-range.min)/(range.max-range.min)*100;
+      // set the background gradient of the range input
+      range.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)';
+      // set the value of the output element
+      output.value = ("0" + range.value).slice(-2);
+    }
+
+    document.getElementById("m-range").oninput = () => setRangeBackground("m-range", "m-output");
     '''
   ++  styl
     '''
@@ -154,26 +191,13 @@
       justify-content: center;
     }
 
-    button {
-      background: linear-gradient(to right, rgba(0, 128, 128, 0.1), rgba(0, 255, 255, 0.1));
-      border: none;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-    }
-
-    .toolbar {
+    .container {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-    }
-
-    .toolbar h3 {
-      font-size: 12px;
-      color: #fff;
+      align-items: center;
     }
 
     .banner {
@@ -204,16 +228,6 @@
       font-size: max(2vh, 3vw);
     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      position: absolute;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-    }
-
     .list-space {
       display: flex;
       flex-direction: column;
@@ -239,12 +253,6 @@
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
-    }
-
-    .list-gid {
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .area {
@@ -283,7 +291,6 @@
       height: 80px;
       animation-delay: 0s;
     }
-
 
     .circles li:nth-child(2) {
       left: 10%;
@@ -362,7 +369,6 @@
       animation-duration: 11s;
     }
 
-
     @keyframes animate {
       0% {
         transform: translateY(0) rotate(0deg);
@@ -375,6 +381,63 @@
         opacity: 0;
         border-radius: 50%;
       }
+    }
+
+    button {
+      background: linear-gradient(to right, rgba(0, 128, 128, 0.1), rgba(0, 255, 255, 0.1));
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    input[type="range"] {
+      padding: 0;
+      background: white;
+      border: solid 4px #82CFD0;
+      border-radius: 10px;
+      height: 20px;
+      width: 20vmin;
+      outline: none;
+      transition: background 450ms ease-in;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 10px;
+      background-color: palegreen;
+      overflow: visible;
+      cursor: pointer;
+    }
+
+    .make-function form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    output {
+      display: flex;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    output[id="m-output"] {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 3vw;
+    }
+
+    output[id="m-output"]:before {
+      content: "size ";
+      display: block;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .footer {

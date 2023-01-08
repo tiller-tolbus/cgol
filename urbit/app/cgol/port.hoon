@@ -1,9 +1,9 @@
 ::
-::  game - see your game files
+::  home - play cgol
+::
 ::
 /-  *cgol
 /+  rudder, *cgol-sail
-::
 ::
 ^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
@@ -12,25 +12,21 @@
   =/  args=(map @t @t)
     (malt +:(purse:rudder url.request.odo))
   ?.  suc  (build ~(tap by args) `[%| msg])
-  =;  fig-hed=play-steer:stern
+  =;  fig-hed=life-steer:stern
     ?+  -.fig-hed  !!
-        %kilt
+        %read
       :-  %next
-      :-  'load'
-      %^  cat  3
-        'killed game '
-      (crip (oust [0 2] (scow %q id.fig-hed)))
+      :-  './port'
+      (rap 3 'new life ' +.fig-hed 'saved' ~)
     ==
-  ;;  play-steer:stern
+  ;;  life-steer:stern
   %+  rash
     msg
   ;~  pose
     ;~  (glue bar)
       sym
     ::
-      %+  cook
-        |=(t=tape `@uv`(slav %uv (crip t)))
-      (star ;~(pose aln dot))
+      sym
     ==
   ==
 ::
@@ -44,9 +40,14 @@
   ?>  authenticated.odo
   =+  act=(~(got by args) 'act')
   ?+    act  (rap 3 ~[err ' - ' act])
-      %drop-game
-    ?~  id=(~(get by args) 'game')   err
-    `action`[%drop `@uv`(slav %uv u.id)]
+      %read-life
+    ?~  tit=(~(get by args) 'title')   err
+    ?~  rle=(~(get by args) 'rle')     err
+    ~&  >>  (trip u.rle)
+    ^-  action
+    :+  %read
+      u.tit
+    (murn (trip u.rle) |=(t=@t ?:(=('\0d' t) ~ `t)))
   ==
 ::
 ++  build
@@ -55,15 +56,12 @@
       ==
   ^-  reply:rudder
   =+  arg=(malt args)
-  =/  gam=(unit game)
-    ?~  g=(~(get by arg) 'game')  ~
-    (~(get by gam.sat) (slav %uv u.g))
   |^  [%page page]
   ++  page
     ^-  manx
     ;html
       ;head
-        ;title:"cgol - play"
+        ;title:"cgol - home"
         ;style:"{(trip styl)}"
         ;meta(charset "utf-8");
         ;meta
@@ -85,11 +83,25 @@
           ==
         ::
           ;div(class "main")
-            ;div(class "toolbar")
-              ;p:"manage your existing games"
-            ==
-            ;div(class "list")
-              ;+  (list-them:make gam.sat)
+            ;div(class "rle-import")
+              ;form(class "rle-form", method "post")
+                ;input(name "act", id "r-act", value "read-life", style "display: none;");
+                ;input(name "title", id "r-tit", placeholder "my-blinker");
+                ;+  =-  ;textarea(name "rle", id "r-rle", placeholder -);
+                    """
+                    #N Blinker
+                    #O John Conway
+                    #C A period 2 oscillator that is the smallest and most common oscillator.
+                    #C www.conwaylife.com/wiki/index.php?title=Blinker
+                    x = 3, y = 1, rule = B3/S23
+                    3o!
+                    """
+                ;button
+                  ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
+                    ;path(fill "#fff", d "M11 20v-8.15l-2.6 2.6L7 13l5-5 5 5-1.4 1.45-2.6-2.6V20ZM4 9V6q0-.825.588-1.412Q5.175 4 6 4h12q.825 0 1.413.588Q20 5.175 20 6v3h-2V6H6v3Z");
+                  ==
+                ==
+              ==
             ==
           ==
         ::
@@ -115,12 +127,24 @@
           ==
         ==
       ::
-        :: ;script:"{(trip scrp)}"
+        ;script:"{(trip scrp)}"
       ==
     ==
   ++  scrp
     '''
-    test
+    function setRangeBackground(rangeId, outputId) {
+      // get the range input and output elements by their IDs
+      const range = document.getElementById(rangeId);
+      const output = document.getElementById(outputId);
+      // calculate the background gradient value based on the current value of the range input
+      const value = (range.value-range.min)/(range.max-range.min)*100;
+      // set the background gradient of the range input
+      range.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)';
+      // set the value of the output element
+      output.value = ("0" + range.value).slice(-2);
+    }
+
+    document.getElementById("m-range").oninput = () => setRangeBackground("m-range", "m-output");
     '''
   ++  styl
     '''
@@ -152,28 +176,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       border-radius: 10px;
       justify-content: center;
-    }
-
-    button {
-      background: linear-gradient(to right, rgba(0, 128, 128, 0.1), rgba(0, 255, 255, 0.1));
-      border: none;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-    }
-
-    .toolbar h3 {
-      font-size: 12px;
-      color: #fff;
     }
 
     .banner {
@@ -211,40 +213,38 @@
       position: absolute;
       justify-content: center;
       align-items: center;
-      color: #fff;
     }
 
-    .list-space {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 39vh;
-    }
-
-    .list-space tbody {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 80%;
-    }
-
-    .list-row {
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
+    .rle-import {
+      height: 50vmin;
+      width: 50vmin;
       background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
     }
 
-    .list-gid {
+    .rle-form {
       display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
       align-items: center;
       justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .rle-form input[name="title"] {
+      background: #ffffff57;
+      background-image: linear-gradient(45deg, #69e4d28c, #57c1ed5e);
+    }
+
+    .rle-form textarea {
+      flex: 1;
+      width: 90%;
+      background: #ffffff57;
+      background-image: linear-gradient(45deg, #69e4d28c, #57c1ed5e);
     }
 
     .area {
@@ -283,7 +283,6 @@
       height: 80px;
       animation-delay: 0s;
     }
-
 
     .circles li:nth-child(2) {
       left: 10%;
@@ -362,7 +361,6 @@
       animation-duration: 11s;
     }
 
-
     @keyframes animate {
       0% {
         transform: translateY(0) rotate(0deg);
@@ -375,6 +373,52 @@
         opacity: 0;
         border-radius: 50%;
       }
+    }
+
+    button {
+      background: linear-gradient(to right, rgba(0, 128, 128, 0.1), rgba(0, 255, 255, 0.1));
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    input[type="range"] {
+      padding: 0;
+      background: white;
+      border: solid 4px #82CFD0;
+      border-radius: 10px;
+      height: 20px;
+      width: 20vmin;
+      outline: none;
+      transition: background 450ms ease-in;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 10px;
+      background-color: palegreen;
+      overflow: visible;
+      cursor: pointer;
+    }
+
+    .make-function form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    output {
+      display: flex;
+      color: #fff;
+      font-size: 10px;
+    }
+
+    output[id="m-output"]:before {
+      content: "board size: ";
+      font-weight: bold;
     }
 
     .footer {
