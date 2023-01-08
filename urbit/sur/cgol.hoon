@@ -71,6 +71,7 @@
   +$  life-steer
     $%  [%read nam=@t]
         [%kild nam=@t]
+        [%rite id=@uv]
     ==
   --
 --

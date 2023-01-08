@@ -1,9 +1,8 @@
 ::
-::  game - see your game files
+::  load - load game
 ::
 /-  *cgol
 /+  rudder, *cgol-sail
-::
 ::
 ^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
@@ -95,7 +94,7 @@
         ::
           ;div(class "footer")
             ;h3:"made with locally sourced artisanal hoon"
-            ;h3:"by chorus one x quartus co"
+            ;h3:"by chorus.one x quartus.co"
           ==
         ==
       ::

@@ -95,7 +95,6 @@
       |=  jon=json
       ?>  ?=(%o -.jon)
       =+  maj=`(map @tas json)`p.jon
-      ~&  >>  maj
       :+  ((se %ud) (~(got by maj) %x))
         ((se %ud) (~(got by maj) %y))
       ?~  rul=(~(get by maj) %rule)  *(unit @t)

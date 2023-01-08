@@ -1,5 +1,5 @@
 ::
-::  play - run the simulation
+::  play - play game
 ::
 /-  *cgol
 /+  rudder, *cgol-sail, c-w=cgol-wing
@@ -151,11 +151,7 @@
                   ;div#status.green:"{(trip txt.u.msg)}"
                 ;div#status.red:"{(trip txt.u.msg)}"
             ==
-          ::
-            ;div(class "toolbar")
-              ;h3:"new game: "
-              ;+  make-game:make
-            ==
+          :::
             ;div(class "game")
               ;+  ~(show-game make gam lef aut gud)
             ==
@@ -163,7 +159,7 @@
         ::
           ;div(class "footer")
             ;h3:"made with locally sourced artisanal hoon"
-            ;h3:"by chorus one x quartus co"
+            ;h3:"by chorus.one x quartus.co"
           ==
         ==
       ==
@@ -185,16 +181,7 @@
       ==
     ::
       ;script:"{(trip scrp)}"
-    ::
-    ::  hidden javascript mode
-    ::
-      :: ;script:"{my-scry-here}"
-      ;script:"{java}"
     ==
-  ++  java
-    """
-    startGame(10, 10, 10, {(en-json:html (bord:enjs:c-w bord:(need gam)))})
-    """
   ++  scrp
     '''
     function setInputValueFromQueryParam() {
@@ -240,7 +227,6 @@
       output.value = ("0" + range.value).slice(-2);
     }
 
-    document.getElementById("m-range").oninput = () => setRangeBackground("m-range", "m-output");
     document.getElementById("p-cycles").oninput = () => setRangeBackground("p-cycles", "p-output");
     '''
   ++  styl

@@ -2,7 +2,7 @@
 ::  cgol - by chorusone and quartus
 ::  -  dedicated to josh lehman
 ::  -  see: https://github.com/jalehman/hoon-life/blob/master/life.hoon
-:::
+::
 /-  *cgol
 /+  rudder, c-g=cgol-game, c-w=cgol-wing
 /+  verb, dbug, default-agent
@@ -34,19 +34,19 @@
       eng   ~(. +> [bowl ~ [%| '500 error']])
   ++  on-init
     ^-  (quip card _this)
-    ~>  %bout.[0 '%cgol +on-init']
+    :: ~>  %bout.[0 '%cgol +on-init']
     =^  cards  state
       abet:init:eng
     [cards this]
   ::
   ++  on-save
     ^-  vase
-    ~>  %bout.[0 '%cgol +on-save']
+    :: ~>  %bout.[0 '%cgol +on-save']
     !>(state)
   ::
   ++  on-load
     |=  ole=vase
-    ~>  %bout.[0 '%cgol +on-load']
+    :: ~>  %bout.[0 '%cgol +on-load']
     ^-  (quip card _this)
     =^  cards  state
       abet:(load:eng ole)
@@ -55,7 +55,7 @@
   ++  on-poke
     |=  [mar=mark vaz=vase]
     ::  poke timer for debugging
-    ~>  %bout.[0 '%cgol +on-poke']
+    :: ~>  %bout.[0 '%cgol +on-poke']
     ^-  (quip card _this)
     =^  cards  state
       ?+    mar  ~|(bad-mark-cgol/mar !!)
@@ -94,34 +94,34 @@
   ::
   ++  on-peek
     |=  =path
-    ~>  %bout.[0 '%cgol +on-peek']
+    :: ~>  %bout.[0 '%cgol +on-peek']
     ^-  (unit (unit cage))
     [~ ~]
   ::
   ++  on-agent
     |=  [wir=wire sig=sign:agent:gall]
-    ~>  %bout.[0 '%cgol +on-agent']
+    :: ~>  %bout.[0 '%cgol +on-agent']
     ^-  (quip card _this)
     `this
   ::
   ++  on-arvo
     |=  [wir=wire sig=sign-arvo]
-    ~>  %bout.[0 '%cgol +on-arvo']
+    :: ~>  %bout.[0 '%cgol +on-arvo']
     ^-  (quip card _this)
     `this
   ::
   ++  on-watch
   |=  =path
-  ~>  %bout.[0 '%cgol +on-watch']
+  :: ~>  %bout.[0 '%cgol +on-watch']
   ^-  (quip card _this)
   `this
   ::
   ++  on-fail
-    ~>  %bout.[0 '%cgol +on-fail']
+    :: ~>  %bout.[0 '%cgol +on-fail']
     on-fail:def
   ::
   ++  on-leave
-    ~>  %bout.[0 '%cgol +on-init']
+    :: ~>  %bout.[0 '%cgol +on-init']
     on-leave:def
   --
 ::  |eng: helper engine
@@ -147,9 +147,18 @@
 ::
 ++  init
   ^+  dat
-  %-  emit
-  =-  [%pass /eyre/connect %arvo %e -]
-  [%connect [[~ [%apps %cgol ~]] dap.bol]]
+  =;  logo=tape
+    %-  emit:(poke !>(`action`[%read 'logo' logo]))
+    =-  [%pass /eyre/connect %arvo %e -]
+    [%connect [[~ [%apps %cgol ~]] dap.bol]]
+  """
+  #N R-pentomino
+  #C A methuselah with lifespan 1103.
+  #C www.conwaylife.com/wiki/index.php?title=R-pentomino
+  #C chorus one x quartus
+  x = 3, y = 3, rule = B3/S23
+  b2o$2ob$bob!
+  """
 ::
 ++  load
   |=  vaz=vase
@@ -172,10 +181,13 @@
       %rite
     =/  life=urle                                       ::  a life
       (~(got by lives) nam.act)
-    =+  siz=(mul 2 (max x.head.life y.head.life))
-    =+  id=`@uv`(shaw eny.bol 64 siz)
-    =/  sta=@ud
-      (sub siz (div (max x.head.life y.head.life) 2))
+    =+  max=(max x.head.life y.head.life)
+    =/  siz=@ud                                         ::  my size
+      =+  temp=(mul 2 max)
+      ?:(=(0 (mod max 2)) temp +(temp))
+    =+  id=`@uv`(shaw eny.bol 64 siz)                   ::  new id
+    =/  sta=@ud                                         ::  offset corner
+      (sub (div siz 2) (div max 2))
     ?>  (gte 25 siz)
     =/  newb=game  (make:ngen:c-g [siz siz])
     =/  quab=game
@@ -183,7 +195,7 @@
           [x.head.life y.head.life]
         0
       (brow:c-g rows.life x.head.life)
-    =+  baby=(mate:c-g quab newb [sta sta])
+    =+  baby=(paint:c-g newb quab [sta sta])
     %=    dat
         games  (~(put by games) id baby)
     ==
@@ -227,6 +239,15 @@
       '''
     ==
     %play  dat(mas [%| 'for offline play'])
+  ::
+      %rite
+    ?~  lif=(~(get by lives) nam.act)
+      dat(mas [%| 'couldn\'t find that life'])
+    =+  max=(max x.head.u.lif y.head.u.lif)
+    =+  siz=(mul 2 max)     ::  min siz
+    =+  id=`@uv`(shaw eny.bol 64 ?:(=(0 (mod max 2)) siz +(siz)))
+    %.  !>(`action`[%rite nam.act ~])
+    poke(mas [%& (cat 3 'rite|' (scot %uv id))])
   ::
       %read
     %.  !>(`action`[%read nam.act rle.act])

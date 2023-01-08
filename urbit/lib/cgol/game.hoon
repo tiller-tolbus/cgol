@@ -20,19 +20,6 @@
       bun  
     (cat 0 (fil 0 +.i.ran ?-(-.i.ran %live 0b1, %dead 0b0)) bun)
   ==
-::
-:: ++  bgen
-::   |%
-::   ++  play
-::     |=  [bam=bame n=@ud]
-::     |^  ^-  game
-::       |-  ?:  =(0 n) [%0 size.bam step.bam bin.bam]
-::       $(bin.gam (volv bin.gam), n (dec n), step.gam +(step.gam))
-::     ++  volv
-::       |=  rab=bin
-
-::   --
-     
 ::  +brow: board from run
 ::
 ++  brow
@@ -149,5 +136,44 @@
         (snag (add i x.hole) bord.lass)
       (add j y.hole)
     (snag i (snag j bord.gent))
+  ==
+++  paint
+  |=  [wash=game fore=game [x=@ud y=@ud]]
+  =+  ex=(sub (div x.size.wash 2) ?:(=(0 x) x (dec x)))
+  =/  ex-stop=@ud
+    (add x.size.fore ex)
+  =+  wy=(sub (div y.size.wash 2) ?:(=(0 y) y (dec y)))
+  =/  wy-stop=@ud
+    (add y.size.fore wy)
+  =|  pointy=@ud
+  |-
+  ~&  >  [%wy %is wy %stop wy-stop %ex %is ex %stop ex-stop]
+  ?:  =(wy-stop wy)
+    `game`wash
+   %=  $
+    wy      +(wy)
+    ex      ex
+    pointy  +(pointy)
+  ::
+      bord.wash
+    %^    into
+        (oust [wy 1] bord.wash)
+      wy
+    =+  clean=(oust [ex x.size.fore] (snag wy bord.wash))
+    =|  pointx=@ud
+    |-
+    ~&  >>>  [%ex %is ex]
+    ?:  =(ex-stop ex)
+      clean
+    %=  $
+      ex     +(ex)
+      pointx  +(pointx)
+        clean
+      ~&  >>>  [%pointx pointx %pointy pointy]
+      ~&  >    [%bord-fore bord.fore]
+      ~&  >>  [%got (snag pointx (snag pointy bord.fore))]
+      ~&  >   [%chg (into clean ex (snag pointx (snag pointy bord.fore)))]
+      (into clean ex (snag pointx (snag pointy bord.fore)))
+    ==
   ==
 --

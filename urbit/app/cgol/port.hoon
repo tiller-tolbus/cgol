@@ -1,6 +1,5 @@
 ::
-::  home - play cgol
-::
+::  port - read life
 ::
 /-  *cgol
 /+  rudder, *cgol-sail
@@ -16,8 +15,8 @@
     ?+  -.fig-hed  !!
         %read
       :-  %next
-      :-  './port'
-      (rap 3 'new life ' +.fig-hed 'saved' ~)
+      :-  './life'
+      (rap 3 'new life ' +.fig-hed ' saved' ~)
     ==
   ;;  life-steer:stern
   %+  rash
@@ -107,7 +106,7 @@
         ::
           ;div(class "footer")
             ;h3:"made with locally sourced artisanal hoon"
-            ;h3:"by chorus one x quartus co"
+            ;h3:"by chorus.one x quartus.co"
           ==
         ==
       ::
