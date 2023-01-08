@@ -2,7 +2,7 @@
 ::  play - run the simulation
 ::
 /-  *cgol
-/+  rudder, *cgol-sail
+/+  rudder, *cgol-sail, c-w=cgol-wing
 ::
 ^-  (page:rudder [games lives] action)
 |_  [bol=bowl:gall odo=order:rudder sat=[gam=games liv=lives]]
@@ -185,7 +185,16 @@
       ==
     ::
       ;script:"{(trip scrp)}"
+    ::
+    ::  hidden javascript mode
+    ::
+      :: ;script:"{my-scry-here}"
+      ;script:"{java}"
     ==
+  ++  java
+    """
+    startGame(10, 10, 10, {(en-json:html (bord:enjs:c-w bord:(need gam)))})
+    """
   ++  scrp
     '''
     function setInputValueFromQueryParam() {

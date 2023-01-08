@@ -4,6 +4,13 @@
 ::
 ++  enjs
   |%
+  ++  bord
+    ^-  $-(board json)
+    |=  b=board
+    :-  %a
+    %+  turn  b
+    |=  l=(list ?)
+    a/(turn l |=(c=? `json`b/c))
   ++  urle
     |%
     ++  as-file

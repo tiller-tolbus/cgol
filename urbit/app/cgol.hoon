@@ -65,7 +65,7 @@
         =;  out=(quip card [_games _lives])
           [-.out [%0 +.out]]
         ::
-        %.  [bol !<(order:rudder vaz) +.state]
+        %.  [bowl !<(order:rudder vaz) +.state]
         %:  (steer:rudder $:(_games _lives) action)
           pages
         ::
@@ -173,6 +173,7 @@
     =/  life=urle                                       ::  a life
       (~(got by lives) nam.act)
     =+  siz=(mul 2 (max x.head.life y.head.life))
+    =+  id=`@uv`(shaw eny.bol 64 siz)
     =/  sta=@ud
       (sub siz (div (max x.head.life y.head.life) 2))
     ?>  (gte 25 siz)
@@ -182,7 +183,10 @@
           [x.head.life y.head.life]
         0
       (brow:c-g rows.life x.head.life)
-    dat
+    =+  baby=(mate:c-g quab newb [sta sta])
+    %=    dat
+        games  (~(put by games) id baby)
+    ==
   ::
       %read
     %=  dat
@@ -202,7 +206,7 @@
   ::
       %play
     =+  gam=(~(got by games) id.act)
-    %=  dat
+    %=    dat
         games
       (~(put by games) id.act (play:ngen:c-g gam steps.act))
     ==
