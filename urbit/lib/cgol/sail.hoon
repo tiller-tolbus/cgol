@@ -154,7 +154,7 @@
             ==
           ==
           ::
-          ;button(type "button", onclick "")
+          ;button(type "button", onclick "startLightningMode()")
             ;svg(xmlns "http://www.w3.org/2000/svg", height "24", width "24")
               ;path(fill "#fff", d "m10 21 1-7H7.5q-.375 0-.463-.2-.087-.2.113-.55L13 3h1l-1 7h3.5q.375 0 .462.2.088.2-.112.55L11 21Z");
             ==
