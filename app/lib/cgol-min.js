@@ -179,29 +179,3 @@ if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
     startLightningMode: startLightningMode
   };
 }
-// const setGenerationsSlider = (range, output) => {
-//   // const range = selectors.slider();
-//   // const output = selectors.generations();
-//   const value = ((range.value - range.min) / (range.max - range.min)) * 100;
-
-//   range.style.background =
-//     "linear-gradient(to right, #82CFD0 0%, #82CFD0 " +
-//     value +
-//     "%, #fff " +
-//     value +
-//     "%, white 100%)";
-
-//   output.value = ("0" + range.value).slice(-2);
-// };
-// const getBackground = val =>
-//   `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${val}%, #fff ${val}%, white 100%)`;
-
-// const getSliderVal = (range, leftVal) =>
-//   !isNaN(leftVal)
-//     ? { value: getFrac(range, leftVal), output: getOutputVal(leftVal) }
-//     : { value: getFrac(range, range.value), output: getOutputVal(range.value) };
-// if (!isNaN(leftValue)) {
-//   range.value = leftValue;
-// }
-// const leftParam = new URLSearchParams(window.location.search).get("left");
-// const leftValue = parseInt(leftParam, 10);
