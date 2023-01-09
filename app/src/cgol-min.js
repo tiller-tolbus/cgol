@@ -1,11 +1,16 @@
 "use strict";
 
+const CLICK_AUTO_ON_COMPLETE = true;
+const AUTO_CLICK_DELAY = 0;
+const ADVANCE_ONE_GENERATION_BEFORE_AUTO_CLICK = false;
+
 const selectorStrings = {
   gameBoard: "body > div.container > div.main > div.game > div > form > div.game-board",
   checkBox: "input[type=checkbox]",
   generations: "#p-output",
   cell: ([x, y]) => `#c-${x}-${y}`,
   slider: "#p-cycles",
+  autoPlay: "#auto-play",
 };
 const selectors = {
   gameBoard: () => document.querySelector(selectorStrings.gameBoard),
@@ -15,6 +20,7 @@ const selectors = {
   },
   cell: cell => document.querySelector(selectorStrings.cell(cell)),
   slider: () => document.querySelector(selectorStrings.slider),
+  autoPlay: () => document.querySelector(selectorStrings.autoPlay),
 };
 const getNumRows = () => selectors.gameBoard().children.length;
 const getNumColumns = () => selectors.gameBoard().children[0].children.length;
@@ -67,6 +73,14 @@ const getSliderValues = range => ({
   value: getFrac(range, range.value),
   output: getOutputVal(range.value),
 });
+const handleSaveViaAutoPlay = nextGeneration => {
+  setTimeout(() => {
+    if (ADVANCE_ONE_GENERATION_BEFORE_AUTO_CLICK) {
+      draw(nextGeneration);
+    }
+    selectors.autoPlay().click();
+  }, AUTO_CLICK_DELAY);
+};
 const setGenerations = () => {
   const range = selectors.slider();
   const output = selectors.generations();
@@ -92,6 +106,8 @@ const gameLoop = (gameBoard, generations) => {
       setGenerations();
       gameLoop(nextGeneration, generations);
     }, 50);
+  } else if (CLICK_AUTO_ON_COMPLETE) {
+    handleSaveViaAutoPlay(nextGeneration);
   }
 };
 const startGame = () => {
