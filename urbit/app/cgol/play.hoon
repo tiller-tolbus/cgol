@@ -139,7 +139,7 @@
       ==
     ::
       ;body
-        ;script:"{(trip .^(@t %cx /(scot %p our.bol)/cgol/(scot %da now.bol)/app/cgol/cgol-min/js))}"
+        ;script:"{(trip .^(@t %cx /(scot %p our.bol)/cgol/(scot %da now.bol)/app/lightning/cgol-min/js))}"
         ;div(class "container")
           ;div(class "banner", onclick "window.location.href = './'")
             ;h3:"conway's game of life"
@@ -181,7 +181,7 @@
         ==
       ==
     ::
-      ;script:"{(trip .^(@t %cx /(scot %p our.bol)/cgol/(scot %da now.bol)/app/cgol/cgol-min/js))}"
+      ;script:"{(trip .^(@t %cx /(scot %p our.bol)/cgol/(scot %da now.bol)/app/lightning/cgol-min/js))}"
       ;script:"{(trip scrp)}"
     ==
   ++  scrp
